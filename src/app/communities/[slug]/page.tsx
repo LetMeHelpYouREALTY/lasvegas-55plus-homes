@@ -1,6 +1,9 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import { OfficeListingsSection } from '@/components/OfficeListingsSection'
 import { communities, getCommunity } from '@/lib/communities'
+import { AGENT_NAME, BROKERAGE, LICENSE, PHONE_DISPLAY, PHONE_TEL_HREF, SITE_BRAND, SITE_URL } from '@/lib/business'
 
 interface Props { params: Promise<{ slug: string }> }
 
@@ -13,9 +16,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const c = getCommunity(slug)
   if (!c) return {}
   return {
-    title: `${c.name} | Las Vegas 55+ Homes`,
-    description: `${c.name} — ${c.tagline}. Homes ${c.priceRange}. Age 55+ required. HOA ${c.hoa.split('(')[0].trim()}. Dr. Jan Duffy · 702-222-1964.`,
-    alternates: { canonical: `https://lasvegas55plushomes.com/communities/${slug}` },
+    title: `${c.name} | ${SITE_BRAND}`,
+    description: `${c.name} — ${c.tagline}. Homes ${c.priceRange}. Age 55+ required. HOA ${c.hoa.split('(')[0].trim()}. ${AGENT_NAME} · ${PHONE_DISPLAY}.`,
+    alternates: { canonical: `${SITE_URL}/communities/${slug}` },
   }
 }
 
@@ -24,26 +27,8 @@ export default async function CommunityPage({ params }: Props) {
   const c = getCommunity(slug)
   if (!c) notFound()
 
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'RealEstateAgent',
-    name: 'Dr. Jan Duffy',
-    url: `https://lasvegas55plushomes.com/communities/${slug}`,
-    telephone: '702-222-1964',
-    areaServed: c.name,
-    address: {
-      '@type': 'PostalAddress',
-      addressLocality: 'Las Vegas',
-      addressRegion: 'NV',
-      postalCode: c.zip,
-      addressCountry: 'US',
-    },
-  }
-
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <main>
+    <main>
         <section className="bg-green-950 text-white py-16 px-4">
           <div className="max-w-5xl mx-auto">
             <p className="text-yellow-400 text-sm font-semibold mb-2">Active Adult · 55+ Community</p>
@@ -52,6 +37,8 @@ export default async function CommunityPage({ params }: Props) {
             <p className="text-3xl font-bold text-yellow-400">{c.priceRange}</p>
           </div>
         </section>
+
+        <OfficeListingsSection />
 
         <section className="py-14 px-4">
           <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-10">
@@ -72,14 +59,16 @@ export default async function CommunityPage({ params }: Props) {
                   I track every sale and floor plan here. Let me pull current availability and honest
                   HOA details before you visit.
                 </p>
-                <a href="tel:7022221964" className="block w-full bg-yellow-400 text-green-950 font-bold text-center py-3 rounded-lg hover:bg-yellow-300 transition mb-3">
-                  Call 702-222-1964
+                <a href={PHONE_TEL_HREF} className="block w-full bg-yellow-400 text-green-950 font-bold text-center py-3 rounded-lg hover:bg-yellow-300 transition mb-3">
+                  Call {PHONE_DISPLAY}
                 </a>
-                <a href="/contact" className="block w-full border border-yellow-400 text-yellow-400 font-semibold text-center py-3 rounded-lg hover:bg-green-800 transition">
+                <Link href="/contact" className="block w-full border border-yellow-400 text-yellow-400 font-semibold text-center py-3 rounded-lg hover:bg-green-800 transition">
                   Request Community Report
-                </a>
+                </Link>
                 <p className="text-green-400 text-xs text-center mt-4">
-                  Dr. Jan Duffy · NV #S.0197614.LLC<br />BHHS Nevada Properties
+                  {AGENT_NAME} · NV #{LICENSE}
+                  <br />
+                  {BROKERAGE}
                 </p>
               </div>
             </aside>
@@ -88,13 +77,14 @@ export default async function CommunityPage({ params }: Props) {
 
         <section className="border-t py-8 px-4">
           <div className="max-w-5xl mx-auto flex items-center justify-between">
-            <a href="/communities" className="text-green-700 hover:underline font-medium">← All 55+ Communities</a>
-            <a href="/contact" className="bg-green-800 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition text-sm font-semibold">
+            <Link href="/communities" className="text-green-700 hover:underline font-medium">
+              ← All 55+ Communities
+            </Link>
+            <Link href="/contact" className="bg-green-800 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition text-sm font-semibold">
               Free Community Comparison
-            </a>
+            </Link>
           </div>
         </section>
       </main>
-    </>
   )
 }

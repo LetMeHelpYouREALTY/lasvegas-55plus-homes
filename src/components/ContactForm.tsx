@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { PHONE_DISPLAY, PHONE_TEL_HREF } from "@/lib/business";
 
 type FormState = "idle" | "loading" | "success" | "error";
 
@@ -26,7 +27,7 @@ export default function ContactForm() {
       <div className="bg-green-50 border border-green-200 rounded-xl p-8 text-center">
         <div className="text-4xl mb-3">✅</div>
         <h3 className="font-bold text-green-800 text-lg mb-2">Message Received!</h3>
-        <p className="text-green-700 text-sm">I&apos;ll have a real answer for you — usually within the hour. Call <a href="tel:7025001955" className="font-semibold">702-500-1955</a> if it&apos;s urgent.</p>
+        <p className="text-green-700 text-sm">I&apos;ll have a real answer for you — usually within the hour. Call <a href={PHONE_TEL_HREF} className="font-semibold">{PHONE_DISPLAY}</a> if it&apos;s urgent.</p>
       </div>
     );
   }
@@ -46,7 +47,7 @@ export default function ContactForm() {
           <input id="phone" type="tel" value={form.phone}
             onChange={(e) => setForm(f => ({ ...f, phone: e.target.value }))}
             className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            placeholder="702-555-0100" />
+            placeholder="(702) 718-0043" />
         </div>
       </div>
       <div>
@@ -78,7 +79,7 @@ export default function ContactForm() {
           placeholder="Tell me about your situation — neighborhood, timeline, questions…" />
       </div>
       {state === "error" && (
-        <p className="text-red-600 text-sm">Something went wrong. Please call <a href="tel:7025001955" className="font-semibold">702-500-1955</a> directly.</p>
+        <p className="text-red-600 text-sm">Something went wrong. Please call <a href={PHONE_TEL_HREF} className="font-semibold">{PHONE_DISPLAY}</a> directly.</p>
       )}
       <button type="submit" disabled={state === "loading"}
         className="w-full bg-blue-800 text-white font-bold py-3 rounded-lg hover:bg-blue-900 transition-colors disabled:opacity-60">

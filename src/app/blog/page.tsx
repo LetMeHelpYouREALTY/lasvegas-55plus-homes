@@ -1,13 +1,18 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { OfficeListingsSection } from '@/components/OfficeListingsSection'
 import { getKcmPosts } from '@/lib/kcm'
+import { AGENT_NAME, SITE_BRAND, SITE_URL } from '@/lib/business'
 
 export const revalidate = 3600
 
 export const metadata: Metadata = {
-  title: 'Market News | Las Vegas 55+ Homes',
-  description: 'Las Vegas real estate market updates curated for 55+ buyers and sellers — rates, community news, and expert insights from Dr. Jan Duffy.',
-  alternates: { canonical: 'https://lasvegas55plushomes.com/blog' },
+  title: `Market News | ${SITE_BRAND}`,
+  description: `Las Vegas real estate market updates curated for 55+ buyers and sellers — rates, community news, and expert insights from ${AGENT_NAME}.`,
+  alternates: { canonical: `${SITE_URL}/blog` },
+  authors: [{ name: AGENT_NAME, url: SITE_URL }],
+  creator: AGENT_NAME,
+  publisher: AGENT_NAME,
 }
 
 export default async function BlogPage() {
@@ -22,6 +27,7 @@ export default async function BlogPage() {
           <p className="text-green-200">Real estate updates curated for Las Vegas 55+ buyers and sellers.</p>
         </div>
       </section>
+      <OfficeListingsSection />
       <section className="py-14 px-4">
         <div className="max-w-5xl mx-auto">
           {approved.length === 0 ? (

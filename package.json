@@ -2,11 +2,13 @@
   "name": "lasvegas-55plus-homes",
   "version": "0.1.0",
   "private": true,
+  "author": "Dr. Jan Duffy",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.49.4",

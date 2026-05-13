@@ -28,6 +28,12 @@ body {
   outline-offset: 2px;
 }
 
+/** Office listings web component (custom element + shared script in root layout) */
+realscout-office-listings {
+  --rs-listing-divider-color: rgb(101, 141, 172);
+  width: 100%;
+}
+
 .prose h2 {
   font-size: 1.5rem;
   font-weight: 700;

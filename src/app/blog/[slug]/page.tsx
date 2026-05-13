@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+import { OfficeListingsSection } from '@/components/OfficeListingsSection'
 import { getKcmPosts, getKcmPost } from '@/lib/kcm'
+import { AGENT_NAME, PHONE_DISPLAY, PHONE_TEL_HREF, SITE_URL } from '@/lib/business'
 
 export const revalidate = 3600
 
@@ -18,7 +20,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: post.title,
     description: post.excerpt,
-    alternates: { canonical: `https://lasvegas55plushomes.com/blog/${slug}` },
+    alternates: { canonical: `${SITE_URL}/blog/${slug}` },
+    authors: [{ name: AGENT_NAME, url: SITE_URL }],
+    creator: AGENT_NAME,
+    publisher: AGENT_NAME,
+    openGraph: {
+      type: 'article',
+      title: post.title,
+      description: post.excerpt,
+      url: `${SITE_URL}/blog/${slug}`,
+      authors: [AGENT_NAME],
+    },
   }
 }
 
@@ -28,26 +40,44 @@ export default async function BlogPostPage({ params }: Props) {
   if (!post || !post.approved) notFound()
 
   return (
-    <main className="max-w-3xl mx-auto px-4 py-14">
-      <p className="text-green-700 font-semibold text-sm mb-2">{post.category}</p>
-      <h1 className="text-3xl font-bold text-gray-900 mb-3">{post.title}</h1>
-      <p className="text-gray-400 text-sm mb-8">{new Date(post.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
+    <main>
+      <div className="max-w-3xl mx-auto px-4 pt-14 pb-0">
+        <p className="text-green-700 font-semibold text-sm mb-2">{post.category}</p>
+        <h1 className="text-3xl font-bold text-gray-900 mb-3">{post.title}</h1>
+        <p className="text-gray-400 text-sm mb-8">
+          {new Date(post.date).toLocaleDateString('en-US', {
+            month: 'long',
+            day: 'numeric',
+            year: 'numeric',
+          })}
+        </p>
+      </div>
 
-      {post.localContext && (
-        <div className="border-l-4 border-green-600 bg-green-50 p-4 mb-8 rounded-r-lg">
-          <p className="text-xs font-bold text-green-800 uppercase mb-1">Dr. Jan&apos;s Local Take</p>
-          <p className="text-green-900 text-sm">{post.localContext}</p>
+      <OfficeListingsSection />
+
+      <div className="max-w-3xl mx-auto px-4 pb-14">
+        {post.localContext && (
+          <div className="border-l-4 border-green-600 bg-green-50 p-4 mb-8 rounded-r-lg">
+            <p className="text-xs font-bold text-green-800 uppercase mb-1">Dr. Jan&apos;s Local Take</p>
+            <p className="text-green-900 text-sm">{post.localContext}</p>
+          </div>
+        )}
+
+        <div className="prose max-w-none" dangerouslySetInnerHTML={{ __html: post.content }} />
+
+        <div className="mt-10 bg-green-950 text-white rounded-xl p-6 text-center">
+          <p className="font-bold text-lg mb-2">Questions about what this means for you?</p>
+          <p className="text-green-200 text-sm mb-4">
+            Every market shift affects 55+ communities differently. Call and I&apos;ll tell you exactly
+            what it means for your situation.
+          </p>
+          <a
+            href={PHONE_TEL_HREF}
+            className="inline-block bg-yellow-400 text-green-950 font-bold px-6 py-3 rounded-lg hover:bg-yellow-300 transition"
+          >
+            Call {AGENT_NAME} · {PHONE_DISPLAY}
+          </a>
         </div>
-      )}
-
-      <div className="prose max-w-none" dangerouslySetInnerHTML={{ __html: post.content }} />
-
-      <div className="mt-10 bg-green-950 text-white rounded-xl p-6 text-center">
-        <p className="font-bold text-lg mb-2">Questions about what this means for you?</p>
-        <p className="text-green-200 text-sm mb-4">Every market shift affects 55+ communities differently. Call and I&apos;ll tell you exactly what it means for your situation.</p>
-        <a href="tel:7022221964" className="inline-block bg-yellow-400 text-green-950 font-bold px-6 py-3 rounded-lg hover:bg-yellow-300 transition">
-          Call Dr. Jan · 702-222-1964
-        </a>
       </div>
     </main>
   )
