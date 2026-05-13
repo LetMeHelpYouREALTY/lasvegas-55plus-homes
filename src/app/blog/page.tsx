@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: `Market News | ${SITE_BRAND}`,
   description: `Las Vegas real estate market updates curated for 55+ buyers and sellers — rates, community news, and expert insights from ${AGENT_NAME}.`,
   alternates: { canonical: `${SITE_URL}/blog` },
+  authors: [{ name: AGENT_NAME, url: SITE_URL }],
+  creator: AGENT_NAME,
+  publisher: AGENT_NAME,
 }
 
 export default async function BlogPage() {

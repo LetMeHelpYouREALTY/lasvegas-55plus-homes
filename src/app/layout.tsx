@@ -27,6 +27,7 @@ export const metadata: Metadata = {
   applicationName: SITE_BRAND,
   authors: [{ name: AGENT_NAME, url: SITE_URL }],
   creator: AGENT_NAME,
+  publisher: AGENT_NAME,
   keywords: [
     'Sun City Summerlin 55+',
     'Las Vegas 55+ homes',
