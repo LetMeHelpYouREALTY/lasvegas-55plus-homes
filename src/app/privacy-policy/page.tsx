@@ -1,7 +1,19 @@
 import type { Metadata } from 'next'
+import {
+  ADDRESS,
+  AGENT_NAME,
+  BROKERAGE,
+  BUSINESS_NAME,
+  EMAIL,
+  LICENSE,
+  PHONE_DISPLAY,
+  PHONE_TEL_HREF,
+  SITE_BRAND,
+  SITE_URL,
+} from '@/lib/business'
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy | Las Vegas 55+ Homes',
+  title: 'Privacy Policy',
   description: 'Privacy policy for lasvegas55plushomes.com.',
   robots: { index: false },
 }
@@ -10,15 +22,22 @@ export default function PrivacyPage() {
   return (
     <main className="max-w-3xl mx-auto px-4 py-16">
       <h1 className="text-3xl font-bold text-green-950 mb-2">Privacy Policy</h1>
-      <p className="text-gray-400 text-sm mb-10">Last updated: May 12, 2026</p>
+      <p className="text-gray-400 text-sm mb-10">Last updated: May 13, 2026</p>
       <div className="prose">
-        <p>Las Vegas 55+ Homes (lasvegas55plushomes.com) is operated by Dr. Jan Duffy, NV License #S.0197614.LLC, Berkshire Hathaway HomeServices Nevada Properties.</p>
+        <p>
+          {SITE_BRAND} ({SITE_URL.replace('https://', '')}) is operated as {BUSINESS_NAME} by {AGENT_NAME},
+          NV License #{LICENSE}, {BROKERAGE}.
+        </p>
         <h2>Information We Collect</h2>
         <p>Contact form submissions collect name, email, phone, and message. Standard server logs collect IP address and browser type.</p>
         <h2>How We Use It</h2>
         <p>To respond to your inquiry. To send requested market updates. We do not sell your information.</p>
         <h2>Contact</h2>
-        <p>Dr. Jan Duffy · 9406 Del Webb Blvd, Las Vegas NV 89134 · 702-500-1955 · janet.duffy@bhhsnv.com</p>
+        <p>
+          {AGENT_NAME} · {ADDRESS.streetAddress}, {ADDRESS.addressLocality} {ADDRESS.addressRegion}{' '}
+          {ADDRESS.postalCode} ·{' '}
+          <a href={PHONE_TEL_HREF}>{PHONE_DISPLAY}</a> · {EMAIL}
+        </p>
       </div>
     </main>
   )

@@ -3,22 +3,32 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import SiteJsonLd from '@/components/SiteJsonLd'
+import { BUSINESS_NAME, SITE_META_DESCRIPTION, SITE_BRAND, SITE_URL } from '@/lib/business'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://lasvegas55plushomes.com'),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: 'Las Vegas 55+ Homes | Sun City, Del Webb & Active Adult Communities',
-    template: '%s | Las Vegas 55+ Homes',
+    default: BUSINESS_NAME,
+    template: `%s | ${SITE_BRAND}`,
   },
-  description: 'Expert guide to Las Vegas 55+ active adult communities — Sun City Summerlin, Del Webb North Ranch, Heritage at Stonebridge, Anthem. Dr. Jan Duffy, BHHS Nevada Properties.',
-  keywords: ['Las Vegas 55+ homes', 'Sun City Summerlin', 'Del Webb Las Vegas', 'active adult communities Las Vegas', 'Heritage Stonebridge', '55 plus homes Henderson'],
+  description: SITE_META_DESCRIPTION,
+  keywords: [
+    'Sun City Summerlin 55+',
+    'Las Vegas 55+ homes',
+    'Sun City Summerlin',
+    'Del Webb Las Vegas',
+    'active adult communities Las Vegas',
+    'Dr. Jan Duffy',
+    '55 plus homes Henderson',
+  ],
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://lasvegas55plushomes.com',
-    siteName: 'Las Vegas 55+ Homes',
+    url: SITE_URL,
+    siteName: SITE_BRAND,
   },
 }
 
@@ -26,6 +36,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={inter.variable}>
       <body className="min-h-screen flex flex-col">
+        <SiteJsonLd />
         <Header />
         <div className="flex-1">{children}</div>
         <Footer />

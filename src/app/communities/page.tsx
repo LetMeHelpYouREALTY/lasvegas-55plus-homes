@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { communities } from '@/lib/communities'
+import { SITE_BRAND, SITE_URL } from '@/lib/business'
 
 export const metadata: Metadata = {
-  title: 'All 55+ Communities | Las Vegas Active Adult Homes',
+  title: `All 55+ Communities | ${SITE_BRAND}`,
   description: 'Compare all 6 Las Vegas 55+ communities — Sun City Summerlin, Del Webb North Ranch, Heritage Stonebridge, Anthem, Siena, Trilogy Sunstone. Prices, amenities, HOA fees.',
-  alternates: { canonical: 'https://lasvegas55plushomes.com/communities' },
+  alternates: { canonical: `${SITE_URL}/communities` },
 }
 
 export default function CommunitiesPage() {

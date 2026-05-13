@@ -1,17 +1,35 @@
 import Link from 'next/link'
+import {
+  ADDRESS,
+  AGENT_NAME,
+  BROKERAGE,
+  BUSINESS_NAME,
+  EMAIL,
+  LICENSE,
+  PHONE_DISPLAY,
+  PHONE_TEL_HREF,
+  SITE_BRAND,
+  SMS_HREF,
+  SOCIAL_PROFILES,
+  SPECIAL_CLOSED_DATES,
+  HOURS_PUBLIC_LINE,
+} from '@/lib/business'
 
 export default function Footer() {
   return (
     <footer className="bg-green-950 text-white">
       <div className="max-w-6xl mx-auto px-4 py-12 grid md:grid-cols-3 gap-8">
         <div>
-          <h3 className="font-bold text-lg mb-3">Las Vegas 55+ Homes</h3>
+          <h3 className="font-bold text-lg mb-3">{SITE_BRAND}</h3>
+          <p className="text-green-200 text-sm mb-2">{BUSINESS_NAME}</p>
           <p className="text-green-200 text-sm mb-4">
-            Your guide to active adult communities in Las Vegas, Henderson, and the surrounding valley.
+            Veteran-owned · Women-owned · LGBTQ+ friendly · Languages: English, Spanish, Arabic,
+            Cantonese, ASL &amp; Filipino
           </p>
           <p className="text-green-300 text-xs">
-            Dr. Jan Duffy | NV License #S.0197614.LLC<br />
-            Berkshire Hathaway HomeServices Nevada Properties
+            {AGENT_NAME} | NV License #{LICENSE}
+            <br />
+            {BROKERAGE}
           </p>
         </div>
 
@@ -26,28 +44,69 @@ export default function Footer() {
               { name: 'Siena', href: '/communities/siena' },
               { name: 'Trilogy Sunstone', href: '/communities/trilogy-sunstone' },
             ].map((c) => (
-              <li key={c.href}><Link href={c.href} className="hover:text-white transition">{c.name}</Link></li>
+              <li key={c.href}>
+                <Link href={c.href} className="hover:text-white transition">
+                  {c.name}
+                </Link>
+              </li>
             ))}
           </ul>
         </div>
 
         <div>
-          <h4 className="font-semibold mb-3 text-green-300">Contact Dr. Jan</h4>
+          <h4 className="font-semibold mb-3 text-green-300">Contact &amp; hours</h4>
           <ul className="space-y-2 text-sm text-green-200">
-            <li><a href="tel:7022221964" className="hover:text-white transition">📞 702-222-1964</a></li>
-            <li><a href="sms:7022221964" className="hover:text-white transition">💬 Text 702-222-1964</a></li>
-            <li><a href="mailto:janet.duffy@bhhsnv.com" className="hover:text-white transition">✉️ janet.duffy@bhhsnv.com</a></li>
+            <li>
+              <a href={PHONE_TEL_HREF} className="hover:text-white transition">
+                📞 {PHONE_DISPLAY}
+              </a>
+            </li>
+            <li>
+              <a href={SMS_HREF} className="hover:text-white transition">
+                💬 Text {PHONE_DISPLAY}
+              </a>
+            </li>
+            <li>
+              <a href={`mailto:${EMAIL}`} className="hover:text-white transition">
+                ✉️ {EMAIL}
+              </a>
+            </li>
           </ul>
-          <div className="mt-4 text-xs text-green-300">
-            <p>9406 Del Webb Blvd</p>
-            <p>Las Vegas, NV 89134</p>
+          <div className="mt-4 text-xs text-green-300 space-y-1">
+            <p>
+              {ADDRESS.streetAddress}
+              <br />
+              {ADDRESS.addressLocality}, {ADDRESS.addressRegion} {ADDRESS.postalCode}
+            </p>
+            <p>
+              {HOURS_PUBLIC_LINE}. Closed:{' '}
+              {SPECIAL_CLOSED_DATES.map((d) => `${d.date} (${d.label})`).join('; ')}.
+            </p>
+          </div>
+          <div className="mt-4">
+            <p className="text-xs font-semibold text-green-400 mb-2">Social</p>
+            <ul className="flex flex-wrap gap-x-3 gap-y-1 text-xs text-green-200">
+              {SOCIAL_PROFILES.map((href) => {
+                const host = new URL(href).hostname.replace('www.', '')
+                return (
+                  <li key={href}>
+                    <a href={href} className="hover:text-white underline" rel="me noopener noreferrer" target="_blank">
+                      {host}
+                    </a>
+                  </li>
+                )
+              })}
+            </ul>
           </div>
         </div>
       </div>
 
       <div className="border-t border-green-800 py-4 px-4 text-center text-xs text-green-400">
-        <p>© {new Date().getFullYear()} Las Vegas 55+ Homes · Dr. Jan Duffy · BHHS Nevada Properties ·{' '}
-          <Link href="/privacy-policy" className="hover:text-white">Privacy Policy</Link>
+        <p>
+          © {new Date().getFullYear()} {SITE_BRAND} · {AGENT_NAME} · {BROKERAGE} ·{' '}
+          <Link href="/privacy-policy" className="hover:text-white">
+            Privacy Policy
+          </Link>
         </p>
       </div>
     </footer>
