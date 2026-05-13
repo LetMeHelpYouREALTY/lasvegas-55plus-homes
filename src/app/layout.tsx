@@ -11,6 +11,7 @@ import {
   SITE_BRAND,
   SITE_URL,
 } from '@/lib/business'
+import { OG_IMAGE_ALT, OG_IMAGE_SIZE } from '@/lib/og-default-image'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 
@@ -55,11 +56,20 @@ export const metadata: Metadata = {
     siteName: SITE_BRAND,
     title: SITE_BRAND,
     description: SITE_META_DESCRIPTION,
+    images: [
+      {
+        url: '/opengraph-image',
+        width: OG_IMAGE_SIZE.width,
+        height: OG_IMAGE_SIZE.height,
+        alt: OG_IMAGE_ALT,
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: SITE_BRAND,
     description: SITE_META_DESCRIPTION,
+    images: ['/twitter-image'],
   },
   ...(googleVerification || bingVerification
     ? {
