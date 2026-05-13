@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { RealScoutOfficeSection } from '@/components/RealScoutOfficeSection'
 import { communities } from '@/lib/communities'
 import {
   AGENT_NAME,
@@ -53,6 +54,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <RealScoutOfficeSection />
 
       {/* Stats */}
       <section className="bg-green-800 text-white py-6 px-4">

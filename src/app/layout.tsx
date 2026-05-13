@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Script from 'next/script'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import Header from '@/components/Header'
@@ -12,6 +13,7 @@ import {
   SITE_URL,
 } from '@/lib/business'
 import { OG_IMAGE_ALT, OG_IMAGE_SIZE } from '@/lib/og-default-image'
+import { REALSCOUT_SCRIPT_SRC } from '@/lib/realscout-widget'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 
@@ -85,6 +87,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en-US" className={inter.variable}>
       <body className="min-h-screen flex flex-col">
+        <Script
+          src={REALSCOUT_SCRIPT_SRC}
+          strategy="lazyOnload"
+          type="module"
+        />
         <SiteJsonLd />
         <Header />
         <div className="flex-1">{children}</div>

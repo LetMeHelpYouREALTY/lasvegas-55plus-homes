@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import { RealScoutOfficeSection } from '@/components/RealScoutOfficeSection'
 import { communities, getCommunity } from '@/lib/communities'
 import { AGENT_NAME, BROKERAGE, LICENSE, PHONE_DISPLAY, PHONE_TEL_HREF, SITE_BRAND, SITE_URL } from '@/lib/business'
 
@@ -36,6 +37,8 @@ export default async function CommunityPage({ params }: Props) {
             <p className="text-3xl font-bold text-yellow-400">{c.priceRange}</p>
           </div>
         </section>
+
+        <RealScoutOfficeSection />
 
         <section className="py-14 px-4">
           <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-10">

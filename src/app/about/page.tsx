@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { RealScoutOfficeSection } from '@/components/RealScoutOfficeSection'
 import {
   ADDRESS,
   AGENT_NAME,
@@ -26,6 +27,7 @@ export default function AboutPage() {
           </p>
         </div>
       </section>
+      <RealScoutOfficeSection />
       <section className="py-14 px-4 max-w-4xl mx-auto prose">
         <div className="grid md:grid-cols-3 gap-10">
           <div className="md:col-span-2">
