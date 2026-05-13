@@ -28,7 +28,7 @@ export const PHONE_TEL_HREF = 'tel:+17027180043'
 
 export const SMS_HREF = 'sms:+17027180043'
 
-export const EMAIL = 'janet.duffy@bhhsnv.com'
+export const EMAIL = 'DrJanSells@LasVegas55PlusHomes.com'
 
 export const SITE_URL = 'https://lasvegas55plushomes.com'
 
