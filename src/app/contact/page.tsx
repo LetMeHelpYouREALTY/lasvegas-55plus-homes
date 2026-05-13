@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import ContactForm from '@/components/ContactForm'
-import { RealScoutOfficeSection } from '@/components/RealScoutOfficeSection'
+import { OfficeListingsSection } from '@/components/OfficeListingsSection'
 import {
   ADDRESS,
   AGENT_NAME,
@@ -31,7 +31,7 @@ export default function ContactPage() {
           </p>
         </div>
       </section>
-      <RealScoutOfficeSection />
+      <OfficeListingsSection />
       <section className="py-14 px-4">
         <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-10">
           <ContactForm />

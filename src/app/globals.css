@@ -28,7 +28,7 @@ body {
   outline-offset: 2px;
 }
 
-/* RealScout office listings widget (script loaded once in root layout) */
+/** Office listings web component (custom element + shared script in root layout) */
 realscout-office-listings {
   --rs-listing-divider-color: rgb(101, 141, 172);
   width: 100%;

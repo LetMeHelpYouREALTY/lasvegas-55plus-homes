@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { RealScoutOfficeSection } from '@/components/RealScoutOfficeSection'
+import { OfficeListingsSection } from '@/components/OfficeListingsSection'
 
 export default function NotFound() {
   return (
@@ -11,7 +11,7 @@ export default function NotFound() {
           Back to home
         </Link>
       </section>
-      <RealScoutOfficeSection />
+      <OfficeListingsSection />
     </main>
   )
 }

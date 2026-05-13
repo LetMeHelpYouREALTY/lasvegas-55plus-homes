@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { RealScoutOfficeSection } from '@/components/RealScoutOfficeSection'
+import { OfficeListingsSection } from '@/components/OfficeListingsSection'
 import { getKcmPosts, getKcmPost } from '@/lib/kcm'
 import { AGENT_NAME, PHONE_DISPLAY, PHONE_TEL_HREF, SITE_URL } from '@/lib/business'
 
@@ -53,7 +53,7 @@ export default async function BlogPostPage({ params }: Props) {
         </p>
       </div>
 
-      <RealScoutOfficeSection />
+      <OfficeListingsSection />
 
       <div className="max-w-3xl mx-auto px-4 pb-14">
         {post.localContext && (

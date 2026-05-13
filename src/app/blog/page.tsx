@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { RealScoutOfficeSection } from '@/components/RealScoutOfficeSection'
+import { OfficeListingsSection } from '@/components/OfficeListingsSection'
 import { getKcmPosts } from '@/lib/kcm'
 import { AGENT_NAME, SITE_BRAND, SITE_URL } from '@/lib/business'
 
@@ -27,7 +27,7 @@ export default async function BlogPage() {
           <p className="text-green-200">Real estate updates curated for Las Vegas 55+ buyers and sellers.</p>
         </div>
       </section>
-      <RealScoutOfficeSection />
+      <OfficeListingsSection />
       <section className="py-14 px-4">
         <div className="max-w-5xl mx-auto">
           {approved.length === 0 ? (

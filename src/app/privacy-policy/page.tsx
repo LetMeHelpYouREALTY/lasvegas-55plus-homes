@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { RealScoutOfficeSection } from '@/components/RealScoutOfficeSection'
+import { OfficeListingsSection } from '@/components/OfficeListingsSection'
 import {
   ADDRESS,
   AGENT_NAME,
@@ -27,7 +27,7 @@ export default function PrivacyPage() {
         <p className="text-gray-400 text-sm mb-10">Last updated: May 13, 2026</p>
       </div>
 
-      <RealScoutOfficeSection />
+      <OfficeListingsSection />
 
       <div className="max-w-3xl mx-auto px-4 pb-16 prose">
         <p>

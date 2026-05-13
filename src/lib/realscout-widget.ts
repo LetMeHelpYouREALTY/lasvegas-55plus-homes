@@ -1,4 +1,4 @@
-/** RealScout web component embed (office listings pipeline). */
+/** Web component markup for office listings (custom element tag). */
 
 export const REALSCOUT_SCRIPT_SRC =
   'https://em.realscout.com/widgets/realscout-web-components.umd.js'
