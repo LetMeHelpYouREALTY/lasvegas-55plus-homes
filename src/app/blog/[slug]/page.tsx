@@ -1,0 +1,54 @@
+import type { Metadata } from 'next'
+import { notFound } from 'next/navigation'
+import { getKcmPosts, getKcmPost } from '@/lib/kcm'
+
+export const revalidate = 3600
+
+interface Props { params: Promise<{ slug: string }> }
+
+export async function generateStaticParams() {
+  const posts = await getKcmPosts()
+  return posts.filter((p) => p.approved).map((p) => ({ slug: p.slug }))
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params
+  const post = await getKcmPost(slug)
+  if (!post) return {}
+  return {
+    title: post.title,
+    description: post.excerpt,
+    alternates: { canonical: `https://lasvegas55plushomes.com/blog/${slug}` },
+  }
+}
+
+export default async function BlogPostPage({ params }: Props) {
+  const { slug } = await params
+  const post = await getKcmPost(slug)
+  if (!post || !post.approved) notFound()
+
+  return (
+    <main className="max-w-3xl mx-auto px-4 py-14">
+      <p className="text-green-700 font-semibold text-sm mb-2">{post.category}</p>
+      <h1 className="text-3xl font-bold text-gray-900 mb-3">{post.title}</h1>
+      <p className="text-gray-400 text-sm mb-8">{new Date(post.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
+
+      {post.localContext && (
+        <div className="border-l-4 border-green-600 bg-green-50 p-4 mb-8 rounded-r-lg">
+          <p className="text-xs font-bold text-green-800 uppercase mb-1">Dr. Jan&apos;s Local Take</p>
+          <p className="text-green-900 text-sm">{post.localContext}</p>
+        </div>
+      )}
+
+      <div className="prose max-w-none" dangerouslySetInnerHTML={{ __html: post.content }} />
+
+      <div className="mt-10 bg-green-950 text-white rounded-xl p-6 text-center">
+        <p className="font-bold text-lg mb-2">Questions about what this means for you?</p>
+        <p className="text-green-200 text-sm mb-4">Every market shift affects 55+ communities differently. Call and I&apos;ll tell you exactly what it means for your situation.</p>
+        <a href="tel:7022221964" className="inline-block bg-yellow-400 text-green-950 font-bold px-6 py-3 rounded-lg hover:bg-yellow-300 transition">
+          Call Dr. Jan · 702-222-1964
+        </a>
+      </div>
+    </main>
+  )
+}
