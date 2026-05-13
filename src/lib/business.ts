@@ -32,6 +32,18 @@ export const EMAIL = 'DrJanSells@LasVegas55PlusHomes.com'
 
 export const SITE_URL = 'https://lasvegas55plushomes.com'
 
+/** Office pin (OSM Nominatim geocode for structured data; verify in GBP / Maps if needed). */
+export const OFFICE_GEO = {
+  latitude: 36.210548,
+  longitude: -115.298405,
+} as const
+
+export const SCHEMA_IDS = {
+  website: `${SITE_URL}/#website`,
+  brokerage: `${SITE_URL}/#brokerage`,
+  agent: `${SITE_URL}/#realestateagent`,
+} as const
+
 export const ADDRESS = {
   streetAddress: '9406 Del Webb Boulevard',
   addressLocality: 'Las Vegas',
@@ -120,10 +132,10 @@ export function weeklyOpeningHoursSpecification() {
   }))
 }
 
-export function buildRealEstateAgentJsonLd() {
+function realEstateAgentNode() {
   return {
-    '@context': 'https://schema.org',
     '@type': 'RealEstateAgent',
+    '@id': SCHEMA_IDS.agent,
     name: BUSINESS_NAME,
     alternateName: [SITE_BRAND, AGENT_NAME],
     foundingDate: FOUNDING_DATE,
@@ -139,6 +151,12 @@ export function buildRealEstateAgentJsonLd() {
       postalCode: ADDRESS.postalCode,
       addressCountry: ADDRESS.addressCountry,
     },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: OFFICE_GEO.latitude,
+      longitude: OFFICE_GEO.longitude,
+    },
+    worksFor: { '@id': SCHEMA_IDS.brokerage },
     areaServed: SERVICE_AREAS.map((name) => ({ '@type': 'Place', name })),
     knowsAbout: [
       ...COMMUNITY_FOCUS,
@@ -158,6 +176,44 @@ export function buildRealEstateAgentJsonLd() {
       { '@type': 'LocationFeatureSpecification', name: 'Wheelchair accessible seating' },
       { '@type': 'LocationFeatureSpecification', name: 'Gender-neutral restroom' },
       { '@type': 'LocationFeatureSpecification', name: 'Free parking lot' },
+    ],
+    identifier: `NV Real Estate License ${LICENSE}`,
+  }
+}
+
+/**
+ * Entity graph for Google: WebSite + Organization (brokerage) + RealEstateAgent,
+ * with stable @id cross-links (recommended for Search / AI overviews alignment).
+ */
+export function buildSiteJsonLdGraph() {
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebSite',
+        '@id': SCHEMA_IDS.website,
+        url: SITE_URL,
+        name: SITE_BRAND,
+        description: SITE_META_DESCRIPTION,
+        inLanguage: 'en-US',
+        publisher: { '@id': SCHEMA_IDS.agent },
+      },
+      {
+        '@type': 'Organization',
+        '@id': SCHEMA_IDS.brokerage,
+        name: BROKERAGE,
+        url: SITE_URL,
+        address: {
+          '@type': 'PostalAddress',
+          streetAddress: ADDRESS.streetAddress,
+          addressLocality: ADDRESS.addressLocality,
+          addressRegion: ADDRESS.addressRegion,
+          postalCode: ADDRESS.postalCode,
+          addressCountry: ADDRESS.addressCountry,
+        },
+        telephone: PHONE_E164,
+      },
+      realEstateAgentNode(),
     ],
   }
 }
